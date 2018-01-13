@@ -20,15 +20,15 @@ func Update(ctx *gin.Context) { //use more updates
 		// resized := transform.Resize(inverted, 800, 800, transform.Linear)
 		// rotated := transform.Rotate(resized, 45, nil)
 		if (strings.Split(ctx.Param("image"), ".")[len(strings.Split(ctx.Param("image"), "."))-1] == "jpeg") || (strings.Split(ctx.Param("image"), ".")[len(strings.Split(ctx.Param("image"), "."))-1] == "jpg") {
-			if err := imgio.Save("/tmp/"+ctx.Param("image"), inverted, imgio.JPEG); err != nil {
+			if err := imgio.Save("/tmp/"+ctx.Param("image"), inverted, imgio.JPEGEncoder(95)); err != nil {
 				panic(err)
 			}
 		} else if strings.Split(ctx.Param("image"), ".")[len(strings.Split(ctx.Param("image"), "."))-1] == "png" {
-			if err := imgio.Save("/tmp/"+ctx.Param("image"), inverted, imgio.PNG); err != nil {
+			if err := imgio.Save("/tmp/"+ctx.Param("image"), inverted, imgio.PNGEncoder()); err != nil {
 				panic(err)
 			}
 		} else {
-			if err := imgio.Save("/tmp/"+ctx.Param("image"), inverted, imgio.BMP); err != nil {
+			if err := imgio.Save("/tmp/"+ctx.Param("image"), inverted, imgio.BMPEncoder()); err != nil {
 				panic(err)
 			}
 		}
@@ -64,6 +64,7 @@ func Create(ctx *gin.Context) {
 			"Message": "Image successfully saved.",
 		})
 	} else {
+		log.Println("error", err)
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"Data":    err,
 			"Message": "Something went wrong.",

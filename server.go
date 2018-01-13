@@ -4,9 +4,9 @@ package main
 
 import (
 	// "fmt"
+	"github.com/Abhishek-Nagarkoti/go-photoshop/handler"
+	"github.com/Abhishek-Nagarkoti/go-photoshop/middleware"
 	"github.com/gin-gonic/gin"
-	"github.com/photoshop/handler"
-	"github.com/photoshop/middleware"
 	"os"
 )
 
